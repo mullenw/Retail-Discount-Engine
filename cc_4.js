@@ -45,5 +45,15 @@ if (customer.customerType === "student") {
     }
     for (let item of customer.cart) {
         let product = products.find(p => p.sku === item.sku);
+
+        if (product && product.inventory >= item.quantity) {
+            let finalPrice = product.promoPrice * (1 - extraDiscount);
+            total += finalPrice * item.quantity;
+
+            // Reduce inventory
+            product.inventory -= item.quantity;
+        } else {
+            console.log(`Not enough inventory for ${item.sku}`);
+        }
     }
     
