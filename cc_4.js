@@ -27,10 +27,23 @@ product.promoPrice = promoPrice.toFixed(2);
 console.log("Products with promo prices:", products);
 
 const customers = [
-    { id: 1, customerType: "senior", couponCode: "save10", taxRate: 0.085,
-        cart: ({ sku: "001", quantity:2}, {sku: "002", quantity:1})},
-    { id: 2, customerType: "student", couponCode: "save15", taxRate: 0.085,
-        cart: ({ sku: "003", quantity:1}, {sku: "004", quantity:1}, {sku: "005", quantity:1})},
-    { id: 3, customerType: "veteran", couponCode: "save20", taxRate: 0.085,
-        cart: ({ sku: "005", quantity:2})}
+     { id: 1, customerType: "senior", cart: [{ sku: "001", quantity: 2 }, { sku: "002", quantity: 1 }] },
+    { id: 2, customerType: "student", cart: [{ sku: "003", quantity: 1 }, { sku: "004", quantity: 1 }, { sku: "005", quantity: 1 }] },
+    { id: 3, customerType: "regular", cart: [{ sku: "005", quantity: 2 }] }
 ];
+
+for (let customer of customers) {
+    let total = 0;
+    let extraDiscount = 0;
+
+if (customer.customerType === "student") {
+        extraDiscount = 0.05;
+    } else if (customer.customerType === "senior") {
+        extraDiscount = 0.07;
+    } else {
+        extraDiscount = 0;
+    }
+    for (let item of customer.cart) {
+        let product = products.find(p => p.sku === item.sku);
+    }
+    
