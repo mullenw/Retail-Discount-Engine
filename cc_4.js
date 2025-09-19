@@ -1,28 +1,32 @@
 let products = [
-    { sku: "001", name: "football", category: "sports equipment", price: 39.99, inventory: 250},
-    { sku: "002", name: "Gatorade", category: "beverages", price: 29.99, inventory: 150},
-    { sku: "003", name: "nike hoodie", category: "apparel", price: 89.99, inventory: 75},
-    { sku: "004", name: "running shoes", category: "footwear", price: 119.99, inventory: 200},
-    { sku: "005", name: "Jordans", category: "footwear", price: 199.99, inventory: 50}
+    { sku: "001", name: "phone charger", category: "electronics", price: 4.99, inventory: 100},
+    { sku: "002", name: "t-shirt", category: "apparel", price: 12.99, inventory: 150},
+    { sku: "003", name: "apple", category: "groceries", price: 0.99, inventory: 75},
+    { sku: "004", name: "lamp", category: "household", price: 119.99, inventory: 150},
+    { sku: "005", name: "bottled water", category: "default", price: 199.99, inventory: 50}
 ];
 
 for (let product of products) {
     let discount = 0;
     switch(product.category) {
-        case "sports equipment":
-            discount = 0.15
+        case "electronics":
+            discount = 0.2
             break;
 
-    case "footwear":
-    case "apparel":
+    case "groceries":
+    case "household":
         discount = 0.1;
         break;
-    case "beverages":
-        discount = 0;
+    case "apparel":
+        discount = 0.15;
+        break;
+
+        case "default":
+        discount = 0.0
         break;
 };
 let promoPrice = product.price * (1 - discount);
-product.promoPrice = promoPrice.toFixed(2);
+product.promoPrice = promoPrice;
 };
 console.log("Products with promo prices:", products);
 
@@ -49,11 +53,24 @@ if (customer.customerType === "student") {
         if (product && product.inventory >= item.quantity) {
             let finalPrice = product.promoPrice * (1 - extraDiscount);
             total += finalPrice * item.quantity;
-
-            // Reduce inventory
+            
             product.inventory -= item.quantity;
         } else {
             console.log(`Not enough inventory for ${item.sku}`);
         }
     }
-    
+ console.log(`Customer ${customer.id} (${customer.customerType}) total: $${total.toFixed(2)}`);
+}
+
+console.log("Logging first product with for...in:");
+for (let key in products[0]) {
+    console.log(`${key}: ${products[0][key]}`);
+}
+
+console.log("Logging all products with Object.entries:");
+for (let product of products) {
+    for (let [key, value] of Object.entries(product)) {
+        console.log(`${key}: ${value}`);
+    }
+    console.log("------");
+}
